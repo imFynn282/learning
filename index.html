@@ -31,6 +31,174 @@
         </div>
 
         <ul class="nav-links" id="nav-links">
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#projects">Proyek</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+
+        <div class="theme-toggle">
+            <button id="theme-btn" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="fade-in">
+        <div class="container hero-content">
+            <h1>Halo, Saya <span>Ariffin</span></h1>
+            <p class="subtitle"> Just Beginner </p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-outline">Lihat Karya</a>
+                <a href="#contact" class="btn btn-primary">Sosmed Saya</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <div class="container section-padding">
+            <h2 class="section-title">Tentang Saya</h2>
+            <div class="about-grid">
+                <div class="about-img">
+                    <img src="fotogweh.png">
+                </div>
+                <div class="about-text"> 
+                    <p>Saya adalah seorang pemula yag sedang belajar menjadi pengembang yang berfokus pada pembuatan pengalaman digital yang bersih, efisien, dan ramah pengguna. Dengan perhatian pada detail dan estetika modern, saya membantu mewujudkan ide menjadi kenyataan.</p>
+                    <div class="skills-container">
+                        <h3>Keahlian Utama</h3>
+                        <ul class="skills-list">
+                            <li><i class="fab fa-html5"></i> HTML5</li>
+                            <li><i class="fab fa-css3-alt"></i> CSS3</li>
+                            <li><i class="fab fa-js"></i> JavaScript</li>
+                            <li><i class="fab fa-figma"></i> UI/UX Design</li>
+                            <li><i class="fas fa-mobile-alt"></i> Responsive Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="fade-in">
+        <div class="container section-padding">
+            <h2 class="section-title">Proyek Terpilih</h2>
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="tandatanya.jpg" alt="Project 1">
+                    </div>
+                    <div class="project-info">
+                        <h3>Kalkulator</h3>
+                        <p> Calculator with percentage & exponent feature, 
+                           built using HTML, CSS & JavaScript.</p>
+                        <a href="kalkulator/kalkulator.html" class="project-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="tandatanya.jpg" alt="Project 2">
+                    </div>
+                    <div class="project-info">
+                        <h3>Brand Identity Design</h3>
+                        <p>Pengembangan identitas visual yang minimalis untuk perusahaan startup.</p>
+                        <a href="#" class="project-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="tandatanya.jpg" alt="Project 3">
+                    </div>
+                    <div class="project-info">
+                        <h3>Mobile App UI</h3>
+                        <p>Desain antarmuka aplikasi mobile yang fokus pada kemudahan navigasi.</p>
+                        <a href="#" class="project-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <div class="container section-padding">
+            <h2 class="section-title">Mari Berkolaborasi</h2>
+            <div class="contact-form-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email aktif Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tuliskan pesan Anda di sini" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Kirim Pesan</button>
+                    <p id="form-status"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Fynn. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Pribadi - Simple, Modern, dan Elegant.">
+    <title>Portfolio Pribadi | Simple & Modern</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <nav id="navbar">
+    <div class="container nav-container">
+
+        <div class="logo">
+            <a href="#hero">Home<span>.</span></a>
+        </div>
+
+        <!-- HAMBURGER -->
+        <div class="menu-toggle" id="menu-toggle">
+            ☰
+        </div>
+
+        <ul class="nav-links" id="nav-links">
             <li><a href="#hero"> Home </a></li>
             <li><a href="#about">Tentang</a></li>
             <li><a href="#projects">Proyek</a></li>
@@ -167,4 +335,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
