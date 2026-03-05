@@ -1,0 +1,210 @@
+:root {
+    /* Color Palette */
+    --primary-bg: #f8fafc;
+    --calculator-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-color: #1e293b;
+    --btn-bg: rgba(255, 255, 255, 0.6);
+    --btn-hover: rgba(255, 255, 255, 0.8);
+    --operator-bg: #6366f1;
+    --operator-text: #ffffff;
+    --secondary-bg: #e2e8f0;
+    --accent: #8b5cf6;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --history-color: #64748b;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode {
+    --primary-bg: #0f172a;
+    --calculator-bg: rgba(30, 41, 59, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --text-color: #f1f5f9;
+    --btn-bg: rgba(51, 65, 85, 0.6);
+    --btn-hover: rgba(71, 85, 105, 0.8);
+    --operator-bg: #818cf8;
+    --secondary-bg: #334155;
+    --shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    --history-color: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: var(--primary-bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background var(--transition);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.glass {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    border-radius: 24px;
+}
+
+/* Calculator Style */
+.calculator {
+    width: 100%;
+    padding: 24px;
+    background: var(--calculator-bg);
+}
+
+.display {
+    text-align: right;
+    margin-bottom: 24px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.history {
+    font-size: 0.9rem;
+    color: var(--history-color);
+    min-height: 20px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.current-operand {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    aspect-ratio: 1/1;
+    border: none;
+    border-radius: 18px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    transition: var(--transition);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: scale(0.92);
+}
+
+.operator {
+    background: var(--operator-bg);
+    color: var(--operator-text);
+}
+
+.operator:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+}
+
+.secondary {
+    background: var(--secondary-bg);
+}
+
+.equals {
+    background: linear-gradient(135deg, var(--operator-bg), var(--accent));
+    color: white;
+    grid-column: span 1;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    align-self: flex-end;
+}
+
+#theme-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    background: var(--calculator-bg);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+/* History Log */
+.history-log {
+    width: 100%;
+    padding: 16px;
+    background: var(--calculator-bg);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-log h3 {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#history-list {
+    list-style: none;
+}
+
+#history-list li {
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--history-color);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+@media (max-height: 700px) {
+    .container { gap: 10px; }
+    .calculator { padding: 16px; }
+    .display { padding: 12px; margin-bottom: 12px; }
+    .buttons { gap: 8px; }
+}
