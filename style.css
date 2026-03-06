@@ -481,3 +481,8 @@ footer {
     }
 }
 
+.social-links a:hover{
+    transform: translateY(-3px);
+    color: #4fc3f7;
+}
+
