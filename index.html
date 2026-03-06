@@ -52,7 +52,7 @@
             <p class="subtitle"> Just Beginner </p>
             <div class="hero-btns">
                 <a href="#projects" class="btn btn-outline">Lihat Karya</a>
-                <a href="#contact" class="btn btn-primary">Sosmed Saya</a>
+                <a href="#contact" class="btn btn-primary">Kontak Saya</a>
             </div>
         </div>
     </section>
@@ -90,7 +90,7 @@
                 <!-- Project Card 1 -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="tandatanya.jpg" alt="Project 1">
+                        <img src="Kalkulator2.png" alt="Project 1">
                     </div>
                     <div class="project-info">
                         <h3>Kalkulator</h3>
@@ -102,7 +102,7 @@
                 <!-- Project Card 2 -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="tandatanya.jpg" alt="Project 2">
+                        <img src="MPD.png" alt="Project 2">
                     </div>
                     <div class="project-info">
                         <h3>My Productivity Dashboard</h3>
@@ -165,6 +165,36 @@
     
     <!-- Custom JS -->
     <script src="script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("8AnG_0QwNQwKKvnpZ");
+})();
+</script>
+
+<script>
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+e.preventDefault();
+
+const status = document.getElementById("form-status");
+status.innerText = "Mengirim pesan...";
+
+emailjs.sendForm(
+"service_cvwp39q",
+"template_kfsc4oh",
+this
+)
+.then(function() {
+status.innerText = "Pesan berhasil dikirim ✅";
+document.getElementById("contact-form").reset();
+}, function(error) {
+status.innerText = "Gagal mengirim pesan ❌";
+});
+});
+</script>
+
 </body>
 </html>
 
