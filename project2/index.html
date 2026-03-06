@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Productivity Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-info">
+                <h1>My Productivity <span class="text-gradient">Dashboard</span></h1>
+                <p>Stay focused, organized, and ahead of the curve.</p>
+            </div>
+            <div class="header-actions">
+                <button id="theme-btn" class="glass-btn" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard-grid">
+            <!-- Left Column: Clock & Timer -->
+            <div class="grid-column">
+                <!-- Digital Clock Widget -->
+                <section class="card clock-card glass">
+                    <div class="card-header">
+                        <div class="icon-box"><i data-lucide="clock"></i></div>
+                        <span>Time & Date</span>
+                    </div>
+                    <div class="clock-display">
+                        <div id="time" class="time-main">00:00:00</div>
+                        <div id="date" class="date-sub">Friday, March 6</div>
+                        <div class="timezone-info">
+                            <span id="timezone-label">GMT+0</span> • <span id="utc-time">00:00 UTC</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pomodoro Widget -->
+                <section class="card pomodoro-card glass">
+                    <div class="card-header">
+                        <div class="icon-box"><i data-lucide="timer"></i></div>
+                        <span>Focus Session</span>
+                    </div>
+                    <div class="pomodoro-display">
+                        <div id="pomodoro-time" class="timer-main">25:00</div>
+                        
+                        <!-- Timer Presets -->
+                        <div class="timer-presets">
+                            <button class="preset-btn" data-time="25">25m</button>
+                            <button class="preset-btn" data-time="30">30m</button>
+                            <button class="preset-btn" data-time="45">45m</button>
+                            <button class="preset-btn" data-time="60">60m</button>
+                        </div>
+                        
+                        <!-- Custom Timer Input -->
+                        <div class="custom-timer">
+                            <input type="number" id="custom-minutes" min="1" max="180" placeholder="Min">
+                            <button id="set-custom-timer" class="btn-icon-small"><i data-lucide="check"></i></button>
+                        </div>
+
+                        <div class="timer-controls">
+                            <button id="start-btn" class="btn-premium">Start</button>
+                            <button id="pause-btn" class="btn-glass">Pause</button>
+                            <button id="reset-btn" class="btn-ghost">Reset</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quote Widget (Moved here to stay separate from stretching Todo column) -->
+                <section class="card quote-card glass">
+                    <div class="card-header">
+                        <div class="icon-box"><i data-lucide="sparkles"></i></div>
+                        <span>Daily Insights</span>
+                    </div>
+                    <div class="quote-content">
+                        <p id="quote-text">"The best way to predict the future is to create it."</p>
+                        <cite id="quote-author">Peter Drucker</cite>
+                        <div class="quote-footer">
+                            <button id="new-quote-btn" class="btn-icon-premium">
+                                <i data-lucide="refresh-cw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Progress & Tasks -->
+            <div class="grid-column span-2">
+                <!-- Progress Widget -->
+                <section class="card progress-card glass">
+                    <div class="card-header">
+                        <div class="icon-box"><i data-lucide="bar-chart-3"></i></div>
+                        <span>Productivity Score</span>
+                    </div>
+                    <div class="progress-content">
+                        <div class="progress-info">
+                            <span id="progress-text">0 / 0 Tasks</span>
+                            <span id="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="progress-bar" class="progress-bar"></div>
+                        </div>
+                        <div class="weekly-stats">
+                            <h3>Weekly Activity</h3>
+                            <div class="stats-bar-container">
+                                <div class="stat-day" data-day="1"><span>M</span><div class="bar" style="height: 30%"></div></div>
+                                <div class="stat-day" data-day="2"><span>T</span><div class="bar" style="height: 50%"></div></div>
+                                <div class="stat-day" data-day="3"><span>W</span><div class="bar" style="height: 80%"></div></div>
+                                <div class="stat-day" data-day="4"><span>T</span><div class="bar" style="height: 40%"></div></div>
+                                <div class="stat-day" data-day="5"><span>F</span><div class="bar" style="height: 0%"></div></div>
+                                <div class="stat-day" data-day="6"><span>S</span><div class="bar" style="height: 10%"></div></div>
+                                <div class="stat-day" data-day="0"><span>S</span><div class="bar" style="height: 20%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- To-Do List Widget -->
+                <section class="card todo-card glass">
+                    <div class="card-header">
+                        <div class="icon-box"><i data-lucide="layout-list"></i></div>
+                        <span>Project Tasks</span>
+                    </div>
+                    <div class="todo-content">
+                        <div class="todo-input-group">
+                            <div class="input-wrapper">
+                                <i data-lucide="plus" class="input-icon"></i>
+                                <input type="text" id="todo-input" placeholder="Type 'N' to add new task...">
+                            </div>
+                            <button id="add-todo-btn" class="btn-premium">Add Task</button>
+                        </div>
+                        <!-- Scrollable Task Container -->
+                        <div class="todo-list-wrapper">
+                            <ul id="todo-list" class="todo-list">
+                                <!-- Tasks will be added here -->
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
