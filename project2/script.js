@@ -156,7 +156,7 @@ function addTodo() {
 addTodoBtn.addEventListener('click', addTodo);
 todoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addTodo(); });
 
-// --- 5. CUSTOMIZABLE POMODORO TIMER ---
+// --- 5. CUSTOMIZABLE POMODORO TIMER (Persistent across Refresh) ---
 let timerInterval;
 let timeLeft = 25 * 60;
 let isRunning = false;
@@ -169,26 +169,84 @@ const presetBtns = document.querySelectorAll('.preset-btn');
 const customMinInput = document.getElementById('custom-minutes');
 const setCustomBtn = document.getElementById('set-custom-timer');
 
+// Fungsi untuk menyimpan state timer ke LocalStorage
+function saveTimerState() {
+    const activePreset = document.querySelector('.preset-btn.active');
+    const timerState = {
+        timeLeft: timeLeft,
+        isRunning: isRunning,
+        activePresetTime: activePreset ? activePreset.dataset.time : null,
+        lastTimestamp: Date.now()
+    };
+    localStorage.setItem('focusSessionState', JSON.stringify(timerState));
+}
+
+// Fungsi untuk memuat state timer dari LocalStorage
+function loadTimerState() {
+    const saved = localStorage.getItem('focusSessionState');
+    if (saved) {
+        const state = JSON.parse(saved);
+        
+        // Restore active preset class
+        if (state.activePresetTime) {
+            presetBtns.forEach(btn => {
+                if (btn.dataset.time === state.activePresetTime) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        if (state.isRunning) {
+            const secondsPassed = Math.floor((Date.now() - state.lastTimestamp) / 1000);
+            timeLeft = Math.max(0, state.timeLeft - secondsPassed);
+            
+            if (timeLeft > 0) {
+                startTimer(true);
+            } else {
+                timeLeft = 0;
+                updateTimerDisplay();
+                showToast("Focus session complete! Time for a break.");
+            }
+        } else {
+            timeLeft = state.timeLeft;
+            updateTimerDisplay();
+        }
+    } else {
+        // Default if no saved state
+        document.querySelector('.preset-btn[data-time="25"]').classList.add('active');
+    }
+}
+
 function updateTimerDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     pomodoroDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
-function startTimer() {
-    if (isRunning) return;
+function startTimer(isResuming = false) {
+    if (isRunning && !isResuming) return;
     isRunning = true;
     startBtn.textContent = 'Running...';
     startBtn.disabled = true;
+    
+    // Simpan state saat timer dimulai
+    saveTimerState();
+
     timerInterval = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
             updateTimerDisplay();
+            
+            // Simpan state secara berkala (setiap detik) agar tetap akurat saat refresh mendadak
+            saveTimerState();
         } else {
             clearInterval(timerInterval);
             isRunning = false;
             startBtn.textContent = 'Start';
             startBtn.disabled = false;
+            saveTimerState(); // Simpan state akhir (0)
             showToast("Focus session complete! Time for a break.");
             new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play().catch(() => {});
         }
@@ -200,6 +258,8 @@ function pauseTimer() {
     isRunning = false;
     startBtn.textContent = 'Resume';
     startBtn.disabled = false;
+    // Simpan state saat timer dipause
+    saveTimerState();
 }
 
 function resetTimer() {
@@ -208,6 +268,8 @@ function resetTimer() {
     timeLeft = (activePreset ? parseInt(activePreset.dataset.time) : 25) * 60;
     startBtn.textContent = 'Start';
     updateTimerDisplay();
+    // Simpan state saat timer direset
+    saveTimerState();
 }
 
 presetBtns.forEach(btn => {
@@ -217,6 +279,7 @@ presetBtns.forEach(btn => {
         pauseTimer();
         timeLeft = parseInt(btn.dataset.time) * 60;
         updateTimerDisplay();
+        saveTimerState(); // Simpan durasi preset yang dipilih
     });
 });
 
@@ -227,11 +290,12 @@ setCustomBtn.addEventListener('click', () => {
         pauseTimer();
         timeLeft = val * 60;
         updateTimerDisplay();
+        saveTimerState(); // Simpan durasi custom yang diinput
         customMinInput.value = '';
     }
 });
 
-startBtn.addEventListener('click', startTimer);
+startBtn.addEventListener('click', () => startTimer());
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
@@ -273,5 +337,5 @@ window.addEventListener('keydown', (e) => {
 // --- INITIALIZE ---
 highlightToday();
 renderTodos();
-updateTimerDisplay();
-document.querySelector('.preset-btn[data-time="25"]').classList.add('active');
+// loadTimerState handles the timer initialization
+loadTimerState();
