@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                // Close mobile menu if it's open
+                navLinks.classList.remove("active");
+
                 window.scrollTo({
                     top: target.offsetTop - 81, // Offset for fixed navbar
                     behavior: 'smooth'
